@@ -1,0 +1,10 @@
+# Ignorar pacotes instalados para economizar espa�o
+packages/
+
+#Sa�das dos programas
+[Bb]in/
+[Oo]bj/
+tesseract_ocr/
+ReconhecimentoData\ocr/
+.vs/
+install.msi

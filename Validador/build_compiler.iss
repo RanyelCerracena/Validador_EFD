@@ -5,14 +5,11 @@
 #define MyAppVersion "1.0.0"
 #define MyAppPublisher "Meta"
 #define MyAppExeName "Singularity.exe"
-#define MyAppAssocName MyAppName + ""
-#define MyAppAssocExt ".exe"
-#define MyAppAssocKey StringChange(MyAppAssocName, " ", "") + MyAppAssocExt
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{82CE6D4A-64BE-420B-9524-1651F100F419}
+AppId={{855C3D5A-7FDA-4460-BD4F-2E0B572DC214}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -22,11 +19,12 @@ ChangesAssociations=yes
 DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
-OutputDir=C:\Users\Ti03\source\repos\validador\Validador
+OutputDir=S:\TI\Ranyel\Updates programas
 OutputBaseFilename=Singularity Installer
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
+UninstallDisplayIcon={app}\{#MyAppExeName}
 
 [Languages]
 Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
@@ -35,28 +33,33 @@ Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortugue
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}";
 
 [Files]
-Source: "C:\Users\Ti03\source\repos\validador\Validador\Validador\bin\Debug\net6.0-windows\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Ti03\source\repos\validador\Validador\Validador\bin\Debug\net6.0-windows\ClosedXML.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Ti03\source\repos\validador\Validador\Validador\bin\Debug\net6.0-windows\DocumentFormat.OpenXml.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Ti03\source\repos\validador\Validador\Validador\bin\Debug\net6.0-windows\ExcelNumberFormat.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Ti03\source\repos\validador\Validador\Validador\bin\Debug\net6.0-windows\Singularity.deps.json"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Ti03\source\repos\validador\Validador\Validador\bin\Debug\net6.0-windows\Singularity.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Ti03\source\repos\validador\Validador\Validador\bin\Debug\net6.0-windows\Singularity.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Ti03\source\repos\validador\Validador\Validador\bin\Debug\net6.0-windows\Singularity.pdb"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Ti03\source\repos\validador\Validador\Validador\bin\Debug\net6.0-windows\Singularity.runtimeconfig.json"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Ti03\source\repos\Validador_EFD\Validador\Validador\bin\Debug\net6.0-windows\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Ti03\source\repos\Validador_EFD\Validador\Validador\bin\Debug\net6.0-windows\ClosedXML.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Ti03\source\repos\Validador_EFD\Validador\Validador\bin\Debug\net6.0-windows\DocumentFormat.OpenXml.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Ti03\source\repos\Validador_EFD\Validador\Validador\bin\Debug\net6.0-windows\ExcelNumberFormat.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Ti03\source\repos\Validador_EFD\Validador\Validador\bin\Debug\net6.0-windows\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Ti03\source\repos\Validador_EFD\Validador\Validador\bin\Debug\net6.0-windows\Singularity.deps.json"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Ti03\source\repos\Validador_EFD\Validador\Validador\bin\Debug\net6.0-windows\Singularity.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Ti03\source\repos\Validador_EFD\Validador\Validador\bin\Debug\net6.0-windows\Singularity.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Ti03\source\repos\Validador_EFD\Validador\Validador\bin\Debug\net6.0-windows\Singularity.pdb"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Ti03\source\repos\Validador_EFD\Validador\Validador\bin\Debug\net6.0-windows\Singularity.runtimeconfig.json"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Ti03\source\repos\Validador_EFD\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-
-[Registry]
-Root: HKA; Subkey: "Software\Classes\{#MyAppAssocExt}\OpenWithProgids"; ValueType: string; ValueName: "{#MyAppAssocKey}"; ValueData: ""; Flags: uninsdeletevalue
-Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}"; ValueType: string; ValueName: ""; ValueData: "{#MyAppAssocName}"; Flags: uninsdeletekey
-Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\{#MyAppExeName},0"
-Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
-Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".myp"; ValueData: ""
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+Filename: "taskkill"; Parameters: "/im ""{#MyAppExeName}"" /f"; Flags: runhidden postinstall
+Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall
+
+[UninstallRun]
+Filename: "taskkill"; Parameters: "/im ""{#MyAppExeName}"" /f"; Flags: runhidden
+
+[UninstallDelete]
+Type: files; Name: "{app}\*"; 
+Type: filesandordirs; Name: "{app}"
+
+
 

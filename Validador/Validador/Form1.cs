@@ -15,6 +15,29 @@ namespace Validador
         public Form1()
         {
             InitializeComponent();
+            this.Load += Form1_Load;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            var caminhoAtualizacao = (@"S:\TI\Ranyel\Updates programas\Singularity Installer.exe");
+            var versaoAtualizador = FileVersionInfo.GetVersionInfo(caminhoAtualizacao).ProductVersion.Replace(".", "");
+            var versaoAtualizadorInt = int.Parse(versaoAtualizador);
+            if (versaoAtualizadorInt > Atualizacao.Versao)
+            {
+                var resposta = MessageBox.Show("Existe uma nova versão do programa, deseja instalar?", "Atualização disponível", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (resposta != DialogResult.Yes)
+                {
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    ProcessStartInfo startInfo = new ProcessStartInfo(caminhoAtualizacao);
+                    startInfo.Arguments = "/silent";
+                    Process.Start(startInfo);
+                    Environment.Exit(0);
+                }
+            }
         }
 
         private void selecionarCaminhoArquivo_Click(object sender, EventArgs e)
@@ -284,11 +307,6 @@ namespace Validador
             {
                 salvarComo.Focus();
             }
-        }
-
-        private async void Form1_Load(object sender, EventArgs e)
-        {
-            await Task.Run(() => UpdateController.BaixarAtualizacao(UpdateController.ObterInformacoesAtualizacao(true), true, false, true));
         }
     }
 }

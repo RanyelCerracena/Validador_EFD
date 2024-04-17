@@ -16,6 +16,7 @@ namespace Validador
         {
             InitializeComponent();
             this.Load += Form1_Load;
+            this.Text += $" - v{Atualizacao.Versao}";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -23,7 +24,7 @@ namespace Validador
             var caminhoAtualizacao = (@"S:\TI\Ranyel\Updates programas\Singularity Installer.exe");
             var versaoAtualizador = FileVersionInfo.GetVersionInfo(caminhoAtualizacao).ProductVersion.Replace(".", "");
             var versaoAtualizadorInt = int.Parse(versaoAtualizador);
-            if (versaoAtualizadorInt > Atualizacao.Versao)
+            if (versaoAtualizadorInt > int.Parse(Atualizacao.Versao.Replace(".", "")))
             {
                 var resposta = MessageBox.Show("Existe uma nova versão do programa, deseja instalar?", "Atualização disponível", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (resposta != DialogResult.Yes)

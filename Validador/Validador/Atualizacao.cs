@@ -8,12 +8,12 @@ namespace Validador
 {
     internal class Atualizacao
     {
-        public static int Versao
+        public static string Versao
         {
             get
             {
                 var versao = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-                return int.Parse((versao.Length == 7 && versao.EndsWith(".0") ? versao.TrimEnd('0').TrimEnd('.') : versao).Replace(".", ""));
+                return (versao.Length == 7 && versao.EndsWith(".0") ? versao.TrimEnd('0').TrimEnd('.') : versao);
             }
         }
     }

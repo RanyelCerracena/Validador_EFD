@@ -99,18 +99,21 @@ namespace Validador
                 string[] dadosPrimeiraLinha = primeiraLinha.Split('|');
 
 
-                if (selecaoTipoArquivo.SelectedIndex == 0) { 
+                if (selecaoTipoArquivo.SelectedIndex == 0)
+                {
                     dadosEmpresa.RazaoSocial = dadosPrimeiraLinha[8];
                     dadosEmpresa.CnpjEmpresa = dadosPrimeiraLinha[9];
-                    try 
-                    { 
+                    try
+                    {
                         dadosEmpresa.Periodo = DateTime.ParseExact(dadosPrimeiraLinha[6], "ddMMyyyy", CultureInfo.InvariantCulture);
-                    } catch
+                    }
+                    catch
                     {
                         MessageBox.Show("Existe mais de um tipo de arquivo no caminho selecionado", "Erro de preenchimento", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                } else
+                }
+                else
                 {
                     dadosEmpresa.RazaoSocial = dadosPrimeiraLinha[6];
                     dadosEmpresa.CnpjEmpresa = dadosPrimeiraLinha[7];
@@ -121,7 +124,7 @@ namespace Validador
                         var produtos = new List<Produto>();
                         string[] ncms = new string[] { "27101259", "22071090", "27101921" };
 
-                        foreach (string linhaProduto in dadosArquivo.Where(x =>x.StartsWith("|0200|")))
+                        foreach (string linhaProduto in dadosArquivo.Where(x => x.StartsWith("|0200|")))
                         {
                             var dadosLinha = linhaProduto.Split('|');
                             if (ncms.Contains(dadosLinha[8]))
@@ -144,7 +147,8 @@ namespace Validador
                                 dadosEmpresa.TemMovimentoLMC = false;
                             }
                         }
-                    } else
+                    }
+                    else
                     {
                         dadosEmpresa.TemMovimentoLMC = false;
                     }
@@ -226,7 +230,7 @@ namespace Validador
                             worksheet.Cell(linha, colunaDados).Value = "Escrituração Não transmitida";
                         }
                         worksheet.Range(1, 1, linha, colunaDados).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
-                        worksheet.Range(1, 1, linha, colunaDados).Style.Border.InsideBorder= XLBorderStyleValues.Thin;
+                        worksheet.Range(1, 1, linha, colunaDados).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
                         worksheet.Range(linha, colunaDados, linha, colunaDados).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                         colunaDados++;
                     }
@@ -282,5 +286,9 @@ namespace Validador
             }
         }
 
+        private async void Form1_Load(object sender, EventArgs e)
+        {
+            await Task.Run(() => UpdateController.BaixarAtualizacao(UpdateController.ObterInformacoesAtualizacao(), true, false, true));
+        }
     }
 }

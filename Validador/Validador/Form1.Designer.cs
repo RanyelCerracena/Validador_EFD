@@ -186,6 +186,7 @@
             MaximizeBox = false;
             Name = "Form1";
             Text = "Sigularity";
+            Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
         }

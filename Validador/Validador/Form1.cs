@@ -288,7 +288,7 @@ namespace Validador
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            await Task.Run(() => UpdateController.BaixarAtualizacao(UpdateController.ObterInformacoesAtualizacao(), true, false, true));
+            await Task.Run(() => UpdateController.BaixarAtualizacao(UpdateController.ObterInformacoesAtualizacao(true), true, false, true));
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Validador
     public class UpdateController
     {
 
-        private static string tokenCriptografado = "Z2hwX0lqWFk1QTVFc1Z1dFZ2dHhUNmEybWtGbm5hYURxSjQzMmpuaw==";
+        private static string tokenCriptografado = "Z2hwXzJwQUw1ZlpxMGJmMWFBdzN6N0QxbFVKNmU1dlh6czE5VzlnbQ==";
 
         public static bool BaixarAtualizacao(JObject dadosVersao, bool perguntar = true, bool informarVersaoAtual = true, bool forcar = false)
         {

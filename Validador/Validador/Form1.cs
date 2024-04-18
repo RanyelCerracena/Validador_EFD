@@ -122,7 +122,6 @@ namespace Validador
                 string primeiraLinha = dadosArquivo[0];
                 string[] dadosPrimeiraLinha = primeiraLinha.Split('|');
 
-
                 if (selecaoTipoArquivo.SelectedIndex == 0)
                 {
                     dadosEmpresa.RazaoSocial = dadosPrimeiraLinha[8];
@@ -143,32 +142,38 @@ namespace Validador
                     dadosEmpresa.CnpjEmpresa = dadosPrimeiraLinha[7];
                     dadosEmpresa.Periodo = DateTime.ParseExact(dadosPrimeiraLinha[4], "ddMMyyyy", CultureInfo.InvariantCulture);
 
+                    if (dadosEmpresa.Periodo < inicioPeriodo || dadosEmpresa.Periodo > finalPeriodo)
+                    {
+                        continue;
+                    }
+
                     if (dadosArquivo.FirstOrDefault(x => x.StartsWith("|1300|")) != null)
                     {
-                        var produtos = new List<Produto>();
-                        string[] ncms = new string[] { "27101259", "22071090", "27101921" };
-
+                        var codigos = dadosArquivo.Where(x => x.StartsWith("|1300|")).Select(x => x.Split('|')[2]).Distinct().ToList();
+                        
                         foreach (string linhaProduto in dadosArquivo.Where(x => x.StartsWith("|0200|")))
                         {
                             var dadosLinha = linhaProduto.Split('|');
-                            if (ncms.Contains(dadosLinha[8]))
+                            if (codigos.Contains(dadosLinha[2]))
                             {
                                 var produto = new Produto();
                                 produto.Codigo = dadosLinha[2];
                                 produto.Descricao = dadosLinha[3];
                                 produto.NCM = dadosLinha[8];
-                                produtos.Add(produto);
+                                dadosEmpresa.Combustiveis.Add(produto);
                             }
                         }
                         dadosEmpresa.TemMovimentoLMC = true;
 
-                        foreach (Produto produto in produtos)
+                        foreach (Produto produto in dadosEmpresa.Combustiveis)
                         {
                             var registrosLMC = dadosArquivo.Where(x => x.StartsWith($"|1300|{produto.Codigo}")).ToList();
                             bool temMovimento = registrosLMC.Select(x => x.Split('|')[11]).Distinct().Count() > 1;
+                            produto.TemMovimento = temMovimento;
                             if (!temMovimento)
                             {
                                 dadosEmpresa.TemMovimentoLMC = false;
+                                
                             }
                         }
                     }
@@ -178,10 +183,7 @@ namespace Validador
                     }
                 }
 
-                if (dadosEmpresa.Periodo < inicioPeriodo || dadosEmpresa.Periodo > finalPeriodo)
-                {
-                    continue;
-                }
+                
                 dadosEmpresa.Existe = true;
                 dadosEmpresa.Zerada = dadosArquivo.FirstOrDefault(x => x.StartsWith("|M100|") || x.StartsWith("|C100|") || x.StartsWith("|C490|")) == null;
                 dadosGeral.Add(dadosEmpresa);
@@ -212,7 +214,7 @@ namespace Validador
             }
 
             using (var workbook = new XLWorkbook())
-            {
+            {   
                 var worksheet = workbook.Worksheets.Add("Dados Validados");
                 int colunaDados = 3;
                 worksheet.Columns(3, 3 + periodos.Count).Width = 25;
@@ -247,6 +249,25 @@ namespace Validador
                             if (selecaoTipoArquivo.SelectedIndex == 1 && !validacao.TemMovimentoLMC)
                             {
                                 worksheet.Cell(linha, colunaDados).Value = "Não tem movimento LMC";
+
+                                if (validacao.TemMovimentoLMC == false)
+                                {
+                                    var comentario = worksheet.Cell(linha, colunaDados).CreateComment();
+                                    comentario.Style.Size.Width = 35;
+                                    string text = "";
+                                    foreach (Produto produto in validacao.Combustiveis)
+                                    {
+                                        if (produto.TemMovimento)
+                                        {
+                                            text += produto.Descricao + " - OK \n" ;
+                                        }
+                                        else
+                                        {
+                                            text += produto.Descricao + " - Zerado \n";
+                                        }
+                                    }
+                                        comentario.AddText(text);
+                                }
                             }
                         }
                         else

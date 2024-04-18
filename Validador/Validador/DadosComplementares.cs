@@ -15,5 +15,6 @@ namespace Validador
         public string CnpjEmpresa;
         public string CodigoEmpresa;
         public bool TemMovimentoLMC;
+        public List<Produto> Combustiveis = new List<Produto>();
     }
 }

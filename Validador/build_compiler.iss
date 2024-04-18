@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Singularity"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.0.3"
 #define MyAppPublisher "Meta"
 #define MyAppExeName "Singularity.exe"
 
@@ -19,7 +19,7 @@ ChangesAssociations=yes
 DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
-OutputDir=S:\TI\Ranyel\Updates programas
+OutputDir=C:\Users\Ti03\Desktop\Ranyel Maluco
 OutputBaseFilename=Singularity Installer
 Compression=lzma
 SolidCompression=yes
